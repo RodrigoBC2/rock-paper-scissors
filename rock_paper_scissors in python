@@ -1,0 +1,46 @@
+#library that generates random numbers
+from random import randint
+
+# dictionary populated with options
+opt_dict = {1 : 'Pedra', 2 : 'Papel', 3 : 'Tesoura'}
+
+print('Choose one of the options below:')
+print('Option 1 = Rock.\nOption 2 = Paper.\nOption 3 = Scissors.')
+
+user = int(input())
+
+# generating an integer random number and saving it in a variable
+rand = randint(1,3)
+pc = opt_dict.get(rand)
+
+# checking if the duel is a draw.
+if user == pc:
+    print('DRAW!')
+
+# if its not a DRAW, than the program will check other options
+elif user == 1:
+    print('User choose: ROCK.')
+    print('Computer choose: ', pc)
+
+    if pc == opt_dict.get(2):
+        print('Computer has won!')
+    elif pc == opt_dict.get(3):
+        print('User has won!')
+
+if user == 2:
+    print('User choose: PAPER.')
+    print('Computer choose: ', pc)
+
+    if pc == opt_dict.get(3):
+        print('Computer has won!')
+    elif pc == opt_dict.get(1):
+        print('User has won!')
+
+if user == 3:
+    print('User choose: SCISSORS.')
+    print('Computer choose: ', pc)
+
+    if pc == opt_dict.get(1):
+        print('Computer has won!')
+    elif pc == opt_dict.get(2):
+        print('User has won!')
