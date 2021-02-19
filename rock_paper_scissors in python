@@ -2,7 +2,7 @@
 from random import randint
 
 # dictionary populated with options
-opt_dict = {1 : 'Pedra', 2 : 'Papel', 3 : 'Tesoura'}
+opt_dict = {1 : 'ROCK', 2 : 'PAPER', 3 : 'SCISSORS'}
 
 print('Choose one of the options below:')
 print('Option 1 = Rock.\nOption 2 = Paper.\nOption 3 = Scissors.')
