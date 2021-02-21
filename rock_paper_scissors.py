@@ -20,8 +20,8 @@ while reboot == True:
     pc = opt_dict.get(rand)
     
     # checking if the duel is a draw.
-    if user == pc:
-        print('DRAW!')
+    if opt_dict.get(user) == pc:
+        print('\n It is a DRAW!')
         
     # if its not a DRAW, than the program will check other options
     elif user == 1:
@@ -29,30 +29,30 @@ while reboot == True:
         print('Computer choose: ', pc)
         
         if pc == opt_dict.get(2):
-            print('Computer has won!')
+            print('\nComputer has won!')
         
         elif pc == opt_dict.get(3):
-            print('User has won!')
+            print('\nUser has won!')
     
     elif user == 2:
         print('User choose: PAPER.')
         print('Computer choose: ', pc)
         
         if pc == opt_dict.get(3):
-            print('Computer has won!')
+            print('\nComputer has won!')
         
         elif pc == opt_dict.get(1):
-            print('User has won!')
+            print('\nUser has won!')
         
     elif user == 3:
         print('User choose: SCISSORS.')
         print('Computer choose: ', pc)
         
         if pc == opt_dict.get(1):
-            print('Computer has won!')
+            print('\nComputer has won!')
         
         elif pc == opt_dict.get(2):
-            print('User has won!')
+            print('\nUser has won!')
     
     # user input choosing play again, "yes" and "not" notation.
     choice = input("\nDo you want to play again? press y if yes or n if not")
