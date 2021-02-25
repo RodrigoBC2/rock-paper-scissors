@@ -2,7 +2,7 @@
 from random import randint
 
 # library to substitue all if and elif from the first version of the code
-def conditionals(x, y):
+def check_bet(user, rand):
 
     # verifying if the game is a draw
     if x == y:
@@ -36,16 +36,12 @@ while reboot == True:
     user = int(input())
     rand = randint(1,3)
 
-    # variables given to "conditionals" function
-    x = user
-    y = rand
-
     # checking the choice of the players
     print("The user choice is: ", opt_dict.get(user))
     print("The computer choice is: ", opt_dict.get(rand))  
 
     # variable that obtains the result given by "conditionals" function
-    game_result = conditionals(x,y)
+    game_result = check_bet(user, rand)
 
     # printing the result on screen
     print("The result is: ", game_result)
@@ -63,5 +59,5 @@ while reboot == True:
         reboot = True
 
     # if not, the initial variable will kill the while loop, finishing the program.    
-    elif choice == 'n':
+    else:
         reboot = False
