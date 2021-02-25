@@ -40,7 +40,7 @@ while reboot == True:
     print("The user choice is: ", opt_dict.get(user))
     print("The computer choice is: ", opt_dict.get(rand))  
 
-    # variable that obtains the result given by "conditionals" function
+    # variable that obtains the result given by "check_bet" function
     game_result = check_bet(user, rand)
 
     # printing the result on screen
