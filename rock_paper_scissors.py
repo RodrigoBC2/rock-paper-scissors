@@ -5,12 +5,12 @@ from random import randint
 def check_bet(user, rand):
 
     # verifying if the game is a draw
-    if x == y:
+    if user == rand:
         winner = 'A Draw!'
         return winner
 
     # shrink all user possibilities to win in a single condition
-    elif x == 1 and y != 2 or x == 2 and y != 3 or x == 3 and y != 1:
+    elif user == 1 and rand != 2 or user == 2 and rand != 3 or user == 3 and rand != 1:
     
         winner = 'User has won!'
         return winner
