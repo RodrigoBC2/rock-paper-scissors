@@ -73,7 +73,11 @@ def game_statistics(game_scoreboard, user, rand):
     else:
         options_counter['computer_counter']['scissors'].append(1)
 
-    return player_wins, computer_wins, match_draws, options_counter
+    sum_rock = sum([sum(options_counter['user_counter']['rock']), sum(options_counter['computer_counter']['rock'])])
+    sum_paper = sum([sum(options_counter['user_counter']['paper']), sum(options_counter['computer_counter']['paper'])])
+    sum_scissors = sum([sum(options_counter['user_counter']['scissors']), sum(options_counter['computer_counter']['scissors'])])
+
+    return player_wins, computer_wins, match_draws, options_counter, sum_rock, sum_paper, sum_scissors
 
 reboot = True
 
@@ -110,7 +114,7 @@ while reboot == True:
     game_scoreboard = game_score(game_result)
 
     # using the game statistics function
-    player_wins, computer_wins, match_draws, options_counter = game_statistics(game_scoreboard, user, rand)
+    player_wins, computer_wins, match_draws, options_counter, sum_rock, sum_paper, sum_scissors = game_statistics(game_scoreboard, user, rand)
 
     # printing the result on screen
     print("The result is: ", game_result)
@@ -141,5 +145,9 @@ while reboot == True:
         print("The number of times computer choose rock: ", sum(options_counter['computer_counter']['rock']))
         print("The number of times computer choose paper: ", sum(options_counter['computer_counter']['paper']))
         print("The number of times computer choose scissors: ", sum(options_counter['computer_counter']['scissors']))
+
+        print("Number of times Rock was chosen: ", sum_rock)
+        print("Number of times Paper was chosen: ", sum_paper)
+        print("Number of times Scissors was chosen: ", sum_scissors)
 
         reboot = False
