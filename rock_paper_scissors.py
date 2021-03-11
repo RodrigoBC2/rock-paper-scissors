@@ -7,20 +7,18 @@ def check_bet(user, rand):
 
     # verifying if the game is a draw
     if user == rand:
-        winner = 'A Draw!'
-        return winner
+        
+        return 'A Draw!'
 
     # shrink all user possibilities to win in a single condition
     elif user == 1 and rand != 2 or user == 2 and rand != 3 or user == 3 and rand != 1:
-
-        winner = 'User has won!'
-        return winner
+        
+        return 'User has won!'
 
     # if none of conditions above is satisfied, then the computer wins
     else:
-
-        winner = 'Computer has won!'
-        return winner
+        
+        return 'Computer has won!'
 
 # scoreboard dictionary to store game results
 scoreboard = {'draw': [],
