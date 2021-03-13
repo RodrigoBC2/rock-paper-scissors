@@ -7,54 +7,66 @@ def check_bet(user, rand):
 
     # verifying if the game is a draw
     if user == rand:
-        
         return 'A Draw!'
 
     # shrink all user possibilities to win in a single condition
     elif user == 1 and rand != 2 or user == 2 and rand != 3 or user == 3 and rand != 1:
-        
         return 'User has won!'
 
     # if none of conditions above is satisfied, then the computer wins
     else:
-        
         return 'Computer has won!'
 
 # scoreboard dictionary to store game results
-scoreboard = {'draw': [],
-              'player': [],
-              'computer': []}
+scoreboard = {'draw': 0,
+              'player': 0,
+              'computer': 0}
 
+# win_streak dictionary created as a buffer, returning the maximum amount of wins in a roll each player scored.
+win_streak = {'win_player': 0,
+              'win_computer': 0}
+
+# win_streak_score dictionary was created to save the highest win streak of each player.
+win_streak_score = {'player_streak': 0,
+                    'computer_streak':0}
 
 # function that returns a dictionary with winners information to make result analysis
 def game_score(game_result):
+
+    # this conditional sets a threshold to start streak count and save the last and bigger streak score.
+    if win_streak['win_player'] > 2 and win_streak['win_player'] >= win_streak_score['player_streak']:
+        win_streak_score['player_streak'] = win_streak['win_player']
+
+    # elif instead of else due to necessary conditions to make the streak count.
+    elif win_streak['win_computer'] > 1 and win_streak['win_computer'] >= win_streak_score['computer_streak']:
+        win_streak_score['computer_streak'] = win_streak['win_computer']
+
+    # if it is a draw, the partial streak count is set to zero.
     if game_result == 'A Draw!':
-        scoreboard['draw'].append(1)
-        scoreboard['player'].append(0)
-        scoreboard['computer'].append(0)
+        scoreboard['draw'] += 1
+        win_streak['win_player'] = 0
+        win_streak['win_computer'] = 0
 
+    # if player wins, streak score start counting and win score is updated
     elif game_result == 'User has won!':
-        scoreboard['draw'].append(0)
-        scoreboard['player'].append(1)
-        scoreboard['computer'].append(0)
+        scoreboard['player'] += 1
+        win_streak['win_player'] += 1
+        win_streak['win_computer'] = 0
 
+    # if computer wins, streak score start counting and win score is updated
     else:
-        scoreboard['draw'].append(0)
-        scoreboard['player'].append(0)
-        scoreboard['computer'].append(1)
+        scoreboard['computer'] += 1
+        win_streak['win_player'] = 0
+        win_streak['win_computer'] += 1
 
-    return scoreboard
+
+    return scoreboard, win_streak_score
 
 options_counter = {'user_counter': {'rock':[], 'paper': [], 'scissors': []},
                    'computer_counter': {'rock':[], 'paper': [], 'scissors': []} }
 
 # function that extract information about the game results from the scoreboard dictionary
-def game_statistics(game_scoreboard, user, rand):
-
-    # sum the number os times player and computer wins and draws.
-    player_wins = sum(game_scoreboard['player'])
-    computer_wins = sum(game_scoreboard['computer'])
-    match_draws = sum(game_scoreboard['draw'])
+def game_statistics(user, rand):
 
     # saving the option selected from user in a dictionary
     if user == 1:
@@ -64,6 +76,7 @@ def game_statistics(game_scoreboard, user, rand):
     else:
         options_counter['user_counter']['scissors'].append(1)
 
+    # saving the option selected from computer in a dictionary
     if rand == 1:
         options_counter['computer_counter']['rock'].append(1)
     elif rand == 2:
@@ -75,7 +88,7 @@ def game_statistics(game_scoreboard, user, rand):
     sum_paper = sum([sum(options_counter['user_counter']['paper']), sum(options_counter['computer_counter']['paper'])])
     sum_scissors = sum([sum(options_counter['user_counter']['scissors']), sum(options_counter['computer_counter']['scissors'])])
 
-    return player_wins, computer_wins, match_draws, options_counter, sum_rock, sum_paper, sum_scissors
+    return sum_rock, sum_paper, sum_scissors
 
 reboot = True
 
@@ -111,16 +124,16 @@ while reboot == True:
     # use the game_score function to put the results in a dictionary
     game_scoreboard = game_score(game_result)
 
-    # using the game statistics function
-    player_wins, computer_wins, match_draws, options_counter, sum_rock, sum_paper, sum_scissors = game_statistics(game_scoreboard, user, rand)
+    # call game_statistics function to show information about rock, paper ans scissors count and selections
+    sum_rock, sum_paper, sum_scissors = game_statistics(user, rand)
 
     # printing the result on screen
     print("The result is: ", game_result)
 
     # printing game statistics on screen
-    print("Player score: ", player_wins)
-    print("Computer score: ", computer_wins)
-    print("Draws score: ", match_draws)
+    print("Player score: ", scoreboard['player'])
+    print("Computer score: ", scoreboard['computer'])
+    print("Draws score: ", scoreboard['draw'])
 
     # user input choosing play again, "yes" and "not" notation.
     choice = input("\nDo you want to play again? press y if yes or n if not\n")
@@ -144,8 +157,13 @@ while reboot == True:
         print("The number of times computer choose paper: ", sum(options_counter['computer_counter']['paper']))
         print("The number of times computer choose scissors: ", sum(options_counter['computer_counter']['scissors']))
 
+        # printing the number of times each item was chosen
         print("Number of times Rock was chosen: ", sum_rock)
         print("Number of times Paper was chosen: ", sum_paper)
         print("Number of times Scissors was chosen: ", sum_scissors)
+
+        # print the win streak of each player
+        print("Player wins in a roll: ", win_streak_score['player_streak'])
+        print("Computer wins in a roll: ", win_streak_score['computer_streak'])
 
         reboot = False
