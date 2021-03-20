@@ -62,31 +62,38 @@ def game_score(game_result):
 
     return scoreboard, win_streak_score
 
-options_counter = {'user_counter': {'rock':[], 'paper': [], 'scissors': []},
-                   'computer_counter': {'rock':[], 'paper': [], 'scissors': []} }
+# dictionary to buffer the options selected by user
+options_user_counter = {'rock': 0,
+                        'paper': 0,
+                        'scissors': 0}
+# dictionary to buffer the options selected by computer
+options_computer_counter = {'rock': 0,
+                            'paper': 0,
+                            'scissors': 0}
 
 # function that extract information about the game results from the scoreboard dictionary
 def game_statistics(user, rand):
 
-    # saving the option selected from user in a dictionary
+    # incrementing user selected options in a dictionary
     if user == 1:
-        options_counter['user_counter']['rock'].append(1)
+        options_user_counter['rock'] += 1
     elif user == 2:
-        options_counter['user_counter']['paper'].append(1)
+        options_user_counter['paper'] += 1
     else:
-        options_counter['user_counter']['scissors'].append(1)
+        options_user_counter['scissors'] += 1
 
-    # saving the option selected from computer in a dictionary
+    # incrementing computer selected options in a dictionary
     if rand == 1:
-        options_counter['computer_counter']['rock'].append(1)
+        options_computer_counter['rock'] += 1
     elif rand == 2:
-        options_counter['computer_counter']['paper'].append(1)
+        options_computer_counter['paper'] += 1
     else:
-        options_counter['computer_counter']['scissors'].append(1)
+        options_computer_counter['scissors'] += 1
 
-    sum_rock = sum([sum(options_counter['user_counter']['rock']), sum(options_counter['computer_counter']['rock'])])
-    sum_paper = sum([sum(options_counter['user_counter']['paper']), sum(options_counter['computer_counter']['paper'])])
-    sum_scissors = sum([sum(options_counter['user_counter']['scissors']), sum(options_counter['computer_counter']['scissors'])])
+    # sum every option to give the number of times each option was selected from both competitors
+    sum_rock = sum(options_user_counter['rock'], options_computer_counter['rock'])
+    sum_rock = sum(options_user_counter['rock'], options_computer_counter['rock'])
+    sum_rock = sum(options_user_counter['rock'], options_computer_counter['rock'])
 
     return sum_rock, sum_paper, sum_scissors
 
