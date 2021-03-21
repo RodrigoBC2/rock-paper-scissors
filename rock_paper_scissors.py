@@ -71,6 +71,7 @@ options_computer_counter = {'rock': 0,
                             'paper': 0,
                             'scissors': 0}
 
+# dictionary created to sum the options selected from both competitors
 options_total_sum = {'rock': 0,
                      'paper': 0,
                      'scissors': 0}
