@@ -4,7 +4,6 @@ from random import randint
 
 # library to substitute all if and elif from the first version of the code
 def check_bet(user, rand):
-
     # verifying if the game is a draw
     if user == rand:
         return 'A Draw!'
@@ -17,6 +16,7 @@ def check_bet(user, rand):
     else:
         return 'Computer has won!'
 
+
 # scoreboard dictionary to store game results
 scoreboard = {'draw': 0,
               'player': 0,
@@ -28,11 +28,11 @@ win_streak = {'win_player': 0,
 
 # win_streak_score dictionary was created to save the highest win streak of each player.
 win_streak_score = {'player_streak': 0,
-                    'computer_streak':0}
+                    'computer_streak': 0}
+
 
 # function that returns a dictionary with winners information to make result analysis
 def game_score(game_result):
-
     # this conditional sets a threshold to start streak count and save the last and bigger streak score.
     if win_streak['win_player'] > 2 and win_streak['win_player'] >= win_streak_score['player_streak']:
         win_streak_score['player_streak'] = win_streak['win_player']
@@ -59,8 +59,8 @@ def game_score(game_result):
         win_streak['win_player'] = 0
         win_streak['win_computer'] += 1
 
-
     return scoreboard, win_streak_score
+
 
 # dictionary to buffer the options selected by user
 options_user_counter = {'rock': 0,
@@ -71,9 +71,13 @@ options_computer_counter = {'rock': 0,
                             'paper': 0,
                             'scissors': 0}
 
+options_total_sum = {'rock': 0,
+                     'paper': 0,
+                     'scissors': 0}
+
+
 # function that extract information about the game results from the scoreboard dictionary
 def game_statistics(user, rand):
-
     # incrementing user selected options in a dictionary
     if user == 1:
         options_user_counter['rock'] += 1
@@ -90,17 +94,17 @@ def game_statistics(user, rand):
     else:
         options_computer_counter['scissors'] += 1
 
-    # sum every option to give the number of times each option was selected from both competitors
-    sum_rock = sum(options_user_counter['rock'], options_computer_counter['rock'])
-    sum_rock = sum(options_user_counter['rock'], options_computer_counter['rock'])
-    sum_rock = sum(options_user_counter['rock'], options_computer_counter['rock'])
+    options_total_sum['rock'] = options_user_counter['rock'] + options_computer_counter['rock']
+    options_total_sum['paper'] = options_user_counter['paper'] + options_computer_counter['paper']
+    options_total_sum['scissors'] = options_user_counter['scissors'] + options_computer_counter['scissors']
 
-    return sum_rock, sum_paper, sum_scissors
+    return options_user_counter, options_computer_counter, options_total_sum
+
 
 reboot = True
 
 # loop to reload the game
-while reboot == True:
+while reboot:
 
     # dictionary populated with options
     opt_dict = {1: 'ROCK', 2: 'PAPER', 3: 'SCISSORS'}
@@ -124,15 +128,13 @@ while reboot == True:
     print("The user choice is: ", opt_dict.get(user))
     print("The computer choice is: ", opt_dict.get(rand))
 
-
     # variable that obtains the result given by "check_bet" function
     game_result = check_bet(user, rand)
 
     # use the game_score function to put the results in a dictionary
-    game_scoreboard = game_score(game_result)
+    game_score(game_result)
 
-    # call game_statistics function to show information about rock, paper ans scissors count and selections
-    sum_rock, sum_paper, sum_scissors = game_statistics(user, rand)
+    game_statistics(user, rand)
 
     # printing the result on screen
     print("The result is: ", game_result)
@@ -156,18 +158,18 @@ while reboot == True:
     # if not, the initial variable will kill the while loop, finishing the program.
     else:
         # printing rock, paper and scissors used by the player and computer
-        print("The number of times player choose rock: ", sum(options_counter['user_counter']['rock']))
-        print("The number of times player choose paper: ", sum(options_counter['user_counter']['paper']))
-        print("The number of times player choose scissors: ", sum(options_counter['user_counter']['scissors']))
+        print("The number of times player choose rock: ", options_user_counter['rock'])
+        print("The number of times player choose paper: ", options_user_counter['paper'])
+        print("The number of times player choose scissors: ", options_user_counter['scissors'])
 
-        print("The number of times computer choose rock: ", sum(options_counter['computer_counter']['rock']))
-        print("The number of times computer choose paper: ", sum(options_counter['computer_counter']['paper']))
-        print("The number of times computer choose scissors: ", sum(options_counter['computer_counter']['scissors']))
+        print("The number of times computer choose rock: ", options_computer_counter['rock'])
+        print("The number of times computer choose paper: ", options_computer_counter['paper'])
+        print("The number of times computer choose scissors: ", options_computer_counter['scissors'])
 
         # printing the number of times each item was chosen
-        print("Number of times Rock was chosen: ", sum_rock)
-        print("Number of times Paper was chosen: ", sum_paper)
-        print("Number of times Scissors was chosen: ", sum_scissors)
+        print("Number of times Rock was chosen: ", options_total_sum['rock'])
+        print("Number of times Paper was chosen: ", options_total_sum['paper'])
+        print("Number of times Scissors was chosen: ", options_total_sum['scissors'])
 
         # print the win streak of each player
         print("Player wins in a roll: ", win_streak_score['player_streak'])
